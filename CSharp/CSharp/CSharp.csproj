@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +50,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <MakeDir Directories="Properties" />
+    <!-- https://github.com/loresoft/msbuildtasks/blob/master/Source/MSBuild.Community.Tasks/Git/GitVersion.cs -->
+    <GitVersion Short="True">
+      <Output TaskParameter="CommitHash" PropertyName="CommitHash" />
+    </GitVersion>
+    <!-- https://github.com/loresoft/msbuildtasks/blob/master/Source/MSBuild.Community.Tasks/Git/GitDescribe.cs -->
+    <GitDescribe LightWeight="True" Match="v[0-9]*">
+      <Output TaskParameter="Tag" PropertyName="VersionTag" />
+    </GitDescribe>
+    <!-- https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md#RegexReplace -->
+    <RegexReplace  Input="$(VersionTag)" Expression="v([0-9\.]+).*" Replacement="$1">
+      <Output TaskParameter="Output" PropertyName="StrictVersion" />
+    </RegexReplace>
+    <!-- https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md#AssemblyInfo -->
+    <AssemblyInfo CodeLanguage="CS"
+      OutputFile="Properties/AssemblyInfo.cs"
+      AssemblyTitle="Embed Version Sample"
+      AssemblyDescription="Embed Version Sample Description"
+      AssemblyConfiguration=""
+      AssemblyCompany=""
+      AssemblyProduct="Embed Version Sample"
+      AssemblyCopyright="Copyright © 2021"
+      AssemblyTrademark=""
+      AssemblyCulture=""
+      ComVisible="false"
+      Guid="ec86a331-8ca3-4979-a09b-e96995eac5b9"
+      AssemblyVersion="$(StrictVersion)"
+      AssemblyFileVersion="$(StrictVersion)"
+      AssemblyInformationalVersion="$(VersionTag.Substring(1)).$(CommitHash)" />
+  </Target>
 </Project>
