@@ -3,3 +3,5 @@
 **/obj/
 **/packages/
 CSharp/CSharp/Properties/AssemblyInfo.cs
+**/.gradle/
+**/build/

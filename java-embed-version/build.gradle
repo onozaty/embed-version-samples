@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
+    id 'com.palantir.git-version' version '0.12.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+sourceCompatibility = 1.8
+
+def mainClass = 'com.github.onozaty.embed.Main'
+
+def gitInfo = versionDetails()
+version = gitInfo.lastTag.substring(1)
+def implementationVersion = version + '.' + gitInfo.gitHash[0..7]
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class' : mainClass,
+            'Implementation-Version' : implementationVersion
+        )
+    }
+}
