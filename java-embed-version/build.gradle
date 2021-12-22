@@ -15,6 +15,7 @@ sourceCompatibility = 1.8
 
 def mainClass = 'com.github.onozaty.embed.Main'
 
+// https://github.com/palantir/gradle-git-version
 def gitInfo = versionDetails()
 version = gitInfo.lastTag.substring(1)
 def implementationVersion = version + '.' + gitInfo.gitHash[0..7]
