@@ -7,4 +7,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="GitInfo" Version="2.2.0" />
+  </ItemGroup>
+
+  <Target Name="AssemblyInfo" BeforeTargets="BeforeBuild" DependsOnTargets="GitInfo;GitVersion">
+    <CreateProperty Value="$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)">
+      <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
+      <Output TaskParameter="Value" PropertyName="FileVersion" />
+    </CreateProperty>
+    <CreateProperty Value="$(GitBaseVersion).$(GitCommit)">
+      <Output TaskParameter="Value" PropertyName="InformationalVersion" />
+    </CreateProperty>
+  </Target>
+
 </Project>
