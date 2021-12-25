@@ -2,6 +2,6 @@
 **/bin/
 **/obj/
 **/packages/
-CSharp/CSharp/Properties/AssemblyInfo.cs
+CSharp_MSBuildTasks/CSharp/Properties/AssemblyInfo.cs
 **/.gradle/
 **/build/
