@@ -11,6 +11,7 @@
     <PackageReference Include="GitInfo" Version="2.2.0" />
   </ItemGroup>
 
+  <!-- https://github.com/devlooped/GitInfo -->
   <Target Name="AssemblyInfo" BeforeTargets="BeforeBuild" DependsOnTargets="GitInfo;GitVersion">
     <CreateProperty Value="$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)">
       <Output TaskParameter="Value" PropertyName="AssemblyVersion" />
