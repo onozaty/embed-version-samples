@@ -63,7 +63,7 @@
   <Target Name="BeforeBuild">
     <MakeDir Directories="Properties" />
     <!-- https://github.com/loresoft/msbuildtasks/blob/master/Source/MSBuild.Community.Tasks/Git/GitVersion.cs -->
-    <GitVersion Short="True" ShortLength="8">
+    <GitVersion ShortLength="8">
       <Output TaskParameter="CommitHash" PropertyName="CommitHash" />
     </GitVersion>
     <!-- https://github.com/loresoft/msbuildtasks/blob/master/Source/MSBuild.Community.Tasks/Git/GitDescribe.cs -->
