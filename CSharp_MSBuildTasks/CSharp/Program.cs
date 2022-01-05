@@ -11,12 +11,12 @@ namespace CSharp
 
             var assembly = Assembly.GetExecutingAssembly();
 
-            Console.WriteLine($"Version: {assembly.GetName().Version}");
+            Console.WriteLine($"AssemblyVersion: {assembly.GetName().Version}");
 
             var versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
 
-            Console.WriteLine($"FileVersion: {versionInfo.FileVersion}");
-            Console.WriteLine($"ProductVersion: {versionInfo.ProductVersion}");
+            Console.WriteLine($"AssemblyFileVersion: {versionInfo.FileVersion}");
+            Console.WriteLine($"AssemblyInformationalVersion: {versionInfo.ProductVersion}");
         }
     }
 }
