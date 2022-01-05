@@ -67,7 +67,7 @@
       <Output TaskParameter="CommitHash" PropertyName="CommitHash" />
     </GitVersion>
     <!-- https://github.com/loresoft/msbuildtasks/blob/master/Source/MSBuild.Community.Tasks/Git/GitDescribe.cs -->
-    <GitDescribe LightWeight="True" Match="v[0-9]*">
+    <GitDescribe Command="describe --first-parent" LightWeight="True" Match="v[0-9]*">
       <Output TaskParameter="Tag" PropertyName="VersionTag" />
     </GitDescribe>
     <!-- https://github.com/loresoft/msbuildtasks/blob/master/Documentation/TaskDocs.md#RegexReplace -->
